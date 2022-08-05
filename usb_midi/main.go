@@ -3,7 +3,7 @@ package main
 import (
 	"machine"
 
-	keypad "github.com/0xcafed00d/pico_rgb_keypad/keypad"
+	"github.com/0xcafed00d/pico_rgb_keypad/keypad"
 )
 
 func main() {

@@ -1,4 +1,4 @@
-package picorgbkeypad
+package keypad
 
 import "machine"
 

@@ -4,7 +4,7 @@ import (
 	"machine"
 	"machine/usb/hid/keyboard"
 
-	keypad "github.com/0xcafed00d/pico_rgb_keypad/keypad"
+	"github.com/0xcafed00d/pico_rgb_keypad/keypad"
 )
 
 func main() {
