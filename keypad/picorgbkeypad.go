@@ -3,6 +3,7 @@ package keypad
 import "machine"
 
 // tiny go implementation of Pimoroni's C++ driver for their pico RGB keypad
+// https://shop.pimoroni.com/products/pico-rgb-keypad-base
 // https://github.com/pimoroni/pimoroni-pico/tree/main/libraries/pico_rgb_keypad
 
 const (
