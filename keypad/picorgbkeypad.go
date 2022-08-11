@@ -1,6 +1,9 @@
 package keypad
 
-import "machine"
+import (
+	"machine"
+	"time"
+)
 
 // tiny go implementation of Pimoroni's C++ driver for their pico RGB keypad
 // https://shop.pimoroni.com/products/pico-rgb-keypad-base
@@ -96,25 +99,51 @@ func (t *PicoRGBKeypad) GetButtonStates() uint16 {
 // helper to keep track of which buttons have just been pressed or released since
 // the last time the state was set
 type ButtonState struct {
-	previous uint16
-	current  uint16
+	previous  [NUM_PADS]bool
+	current   [NUM_PADS]bool
+	debounce  [NUM_PADS]time.Duration
+	last_time time.Time
 }
 
-func (t *ButtonState) SetState(state uint16) {
-	t.previous = t.current
-	t.current = state
+func (t *ButtonState) Init() {
+	t.last_time = time.Now()
+}
+
+func (t *ButtonState) SetState(states uint16) {
+	now := time.Now()
+	d := now.Sub(t.last_time)
+
+	for i := 0; i < NUM_PADS; i++ {
+		// get state of current button
+		bstate := (states & (1 << i)) != 0
+
+		// reduce debounce countdown for current button
+		t.debounce[i] -= d
+
+		// only record current button change if debounce timer has dropped below zero
+		t.previous[i] = t.current[i]
+		if t.debounce[i] < 0 {
+			t.current[i] = bstate
+		}
+
+		// if button just released then start restart the debounce timer
+		if t.JustReleased(i) {
+			// 80ms is a long time to debounce, but the squishy buttons of the picorgbkeypad
+			// are very bouncy. mechanical buttons would be much shorter
+			t.debounce[i] = 80 * time.Millisecond
+		}
+	}
+	t.last_time = now
 }
 
 func (t *ButtonState) IsPressed(index int) bool {
-	return (t.current & (1 << index)) != 0
+	return t.current[index]
 }
 
 func (t *ButtonState) JustPressed(index int) bool {
-	mask := uint16(1) << index
-	return ((t.previous & mask) == 0) && ((t.current & mask) != 0)
+	return (!t.previous[index]) && t.current[index]
 }
 
 func (t *ButtonState) JustReleased(index int) bool {
-	mask := uint16(1) << index
-	return ((t.previous & mask) != 0) && ((t.current & mask) == 0)
+	return t.previous[index] && (!t.current[index])
 }
