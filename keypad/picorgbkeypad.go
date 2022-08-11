@@ -97,7 +97,7 @@ func (t *PicoRGBKeypad) GetButtonStates() uint16 {
 }
 
 // helper to keep track of which buttons have just been pressed or released since
-// the last time the state was set
+// the last time the state was set and to debounce presses
 type ButtonState struct {
 	previous  [NUM_PADS]bool
 	current   [NUM_PADS]bool
@@ -128,9 +128,10 @@ func (t *ButtonState) SetState(states uint16) {
 
 		// if button just released then start restart the debounce timer
 		if t.JustReleased(i) {
-			// 80ms is a long time to debounce, but the squishy buttons of the picorgbkeypad
-			// are very bouncy. mechanical buttons would be much shorter
-			t.debounce[i] = 80 * time.Millisecond
+			// 100ms is a long time to debounce, but the squishy buttons of the picorgbkeypad
+			// are very bouncy - loosening the screws on the pico rgb help a bit.
+			// mechanical buttons would require much shorter debounce time
+			t.debounce[i] = 100 * time.Millisecond
 		}
 	}
 	t.last_time = now
