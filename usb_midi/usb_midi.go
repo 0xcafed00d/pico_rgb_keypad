@@ -8,6 +8,14 @@ import (
 	"github.com/0xcafed00d/pico_rgb_keypad/keypad"
 )
 
+func showPress(i int, pad *keypad.PicoRGBKeypad) {
+	for r := 255; r > 0; r -= 10 {
+		pad.Illuminate(i, byte(r), 0, 0)
+		time.Sleep(10 * time.Millisecond)
+	}
+	pad.Illuminate(i, 0, 0, 0)
+}
+
 func main() {
 	time.Now()
 
@@ -22,14 +30,12 @@ func main() {
 	m := midi.New()
 
 	for {
-
 		buttons.SetState(pad.GetButtonStates())
 
-		led.Low()
 		for i := 0; i < keypad.NUM_PADS; i++ {
 			if buttons.JustPressed(i) {
-				led.High()
 				m.NoteOn(0, 9, midi.Note(35+i), 255)
+				go showPress(i, pad)
 			}
 
 			if buttons.JustReleased(i) {
@@ -38,5 +44,6 @@ func main() {
 
 		}
 		pad.Update()
+		time.Sleep(time.Millisecond)
 	}
 }
