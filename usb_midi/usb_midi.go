@@ -8,6 +8,8 @@ import (
 	"github.com/0xcafed00d/pico_rgb_keypad/keypad"
 )
 
+// place the names of the drums you want each button to play
+// into this array
 var sounds = [keypad.NUM_PADS]midi.Note{
 	BassDrum1,
 	AcousticSnare,
@@ -60,7 +62,6 @@ func main() {
 			if buttons.JustReleased(i) {
 				m.NoteOff(0, 9, sounds[i], 255)
 			}
-
 		}
 		pad.Update()
 		time.Sleep(time.Millisecond)
