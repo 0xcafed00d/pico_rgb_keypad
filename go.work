@@ -1,0 +1,5 @@
+go 1.19
+
+use ./keypad
+use ./usb_kb
+use ./usb_midi
