@@ -38,12 +38,10 @@ func showPress(i int, pad *keypad.PicoRGBKeypad) {
 }
 
 func main() {
-	time.Now()
-
 	led := machine.LED
 	led.Configure(machine.PinConfig{Mode: machine.PinOutput})
 
-	pad := &keypad.PicoRGBKeypad{}
+	pad := keypad.PicoRGBKeypad{}
 	pad.Init()
 	buttons := keypad.ButtonState{}
 	buttons.Init()
@@ -56,7 +54,7 @@ func main() {
 		for i := 0; i < keypad.NUM_PADS; i++ {
 			if buttons.JustPressed(i) {
 				m.NoteOn(0, 9, sounds[i], 255)
-				go showPress(i, pad)
+				go showPress(i, &pad)
 			}
 
 			if buttons.JustReleased(i) {

@@ -39,12 +39,12 @@ func main() {
 	led := machine.LED
 	led.Configure(machine.PinConfig{Mode: machine.PinOutput})
 
-	pad := &keypad.PicoRGBKeypad{}
+	pad := keypad.PicoRGBKeypad{}
 	pad.Init()
+	buttons := keypad.ButtonState{}
+	buttons.Init()
 
 	k := keyboard.New()
-
-	buttons := keypad.ButtonState{}
 
 	for {
 		buttons.SetState(pad.GetButtonStates())
