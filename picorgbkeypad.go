@@ -1,4 +1,4 @@
-package keypad
+package pico_rgb_keypad
 
 import (
 	"machine"

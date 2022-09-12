@@ -5,7 +5,7 @@ import (
 	"machine/usb/midi"
 	"time"
 
-	"github.com/0xcafed00d/pico_rgb_keypad/keypad"
+	keypad "github.com/0xcafed00d/pico_rgb_keypad"
 )
 
 // place the names of the drums you want each button to play
