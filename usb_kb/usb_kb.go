@@ -14,6 +14,7 @@ type PadInfo struct {
 
 var keys = [keypad.NUM_PADS]PadInfo{
 	// ROW 1
+	// R, G, B, Keyscan code
 	{},
 	{0x00, 0xff, 0x00, keyboard.KeyUpArrow},
 	{},

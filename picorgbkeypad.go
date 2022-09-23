@@ -1,13 +1,12 @@
+// tiny go implementation of Pimoroni's C++ driver for their pico RGB keypad
+// https://shop.pimoroni.com/products/pico-rgb-keypad-base
+// https://github.com/pimoroni/pimoroni-pico/tree/main/libraries/pico_rgb_keypad
 package pico_rgb_keypad
 
 import (
 	"machine"
 	"time"
 )
-
-// tiny go implementation of Pimoroni's C++ driver for their pico RGB keypad
-// https://shop.pimoroni.com/products/pico-rgb-keypad-base
-// https://github.com/pimoroni/pimoroni-pico/tree/main/libraries/pico_rgb_keypad
 
 const (
 	PIN_SDA  = machine.I2C0_SDA_PIN
