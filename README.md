@@ -39,6 +39,6 @@ The API is almost identical to Pimoroni's C++ driver API. Check out their docume
 
 # Example Applications:
 
-[USB HID Keypad](https://github.com/0xcafed00d/pico_rgb_keypad/usb_kb/blob/master/README.md)
+[USB HID Keypad](https://github.com/0xcafed00d/pico_rgb_keypad/blob/master/usb_kb/README.md)
 
-[USB Midi Drumpad](https://github.com/0xcafed00d/pico_rgb_keypad/usb_midi/blob/master/README.md)
+[USB Midi Drumpad](https://github.com/0xcafed00d/pico_rgb_keypad/blob/master/usb_midi/README.md)
